@@ -251,7 +251,6 @@ address a { color: var(--brand); font-weight: 700; text-underline-offset: 3px; }
 .footer-brand img { width: 120px; height: auto; }
 .footer-text { text-align: right; }
 .footer-text p { margin: 0; }
-.footer-text .credit { font-size: 0.88rem; opacity: 0.85; }
 .footer-text a { color: #fff; }
 
 /* WhatsApp flutuante */
@@ -270,6 +269,19 @@ address a { color: var(--brand); font-weight: 700; text-underline-offset: 3px; }
 .lightbox-close {
   position: absolute; top: 1rem; right: 1rem; width: 46px; height: 46px;
   border-radius: 50%; border: 0; font-size: 1.6rem; cursor: pointer; background: #fff; color: var(--brand);
+}
+.lightbox-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px;
+  border-radius: 50%; border: 0; padding: 0 0 0.2rem; font-size: 1.9rem; line-height: 1; cursor: pointer;
+  display: grid; place-items: center; background: #fff; color: var(--brand);
+}
+.lightbox-nav:hover { background: #ead9c8; }
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+@media (max-width: 760px) {
+  .lightbox-nav { width: 40px; height: 40px; }
+  .lightbox-prev { left: 0.5rem; }
+  .lightbox-next { right: 0.5rem; }
 }
 
 /* Responsivo */
@@ -344,17 +356,17 @@ address a { color: var(--brand); font-weight: 700; text-underline-offset: 3px; }
 .main-nav a:hover, .main-nav a:focus-visible { background: #fff; color: var(--brand); box-shadow: inset 0 -3px 0 #d8c2a6; }
 .nav-toggle { border-color: rgba(255,255,255,.45); }
 .nav-toggle span { background: #fff; }
-.hero-carousel { position:relative; min-height:clamp(420px, 58vw, 650px); overflow:hidden; background:var(--brand-deep); color:#fff; }
+.hero-carousel { position:relative; height:clamp(520px, calc(100vh - 80px), 650px); height:clamp(520px, calc(100svh - 80px), 650px); overflow:hidden; background:var(--brand-deep); color:#fff; }
 .carousel-slide { display:none; position:absolute; inset:0; align-items:center; padding:clamp(2rem,8vw,7rem); background-image:linear-gradient(90deg,rgba(37,20,13,.86) 0%,rgba(37,20,13,.58) 48%,rgba(37,20,13,.12) 100%),var(--slide-image); background-size:cover; background-position:center; }
 .carousel-slide.active { display:flex; animation:carouselFade .55s ease; }
 .carousel-copy { max-width:690px; }
-.carousel-copy h1,.carousel-copy h2 { color:#fff; font-size:clamp(2.2rem,5vw,4.3rem); line-height:1.08; margin:.5rem 0 1rem; }
-.carousel-copy p:not(.eyebrow) { max-width:540px; font-size:clamp(1rem,1.6vw,1.25rem); color:#f4e8dc; }
+.carousel-copy h1,.carousel-copy h2 { color:#fff; font-size:clamp(2.2rem,5vw,4.3rem); font-size:clamp(2.2rem,min(5vw,9svh),4.3rem); line-height:1.08; min-height:calc(3 * 1.08em); margin:.5rem 0 1rem; }
+.carousel-copy p:not(.eyebrow) { max-width:540px; font-size:clamp(1rem,1.6vw,1.25rem); color:#f4e8dc; min-height:calc(2 * 1.65em); }
+.carousel-copy .btn { min-height:3.6rem; }
 .carousel-copy .eyebrow { color:#e4c9a9; }
 .btn-light { display:inline-flex; align-items:center; justify-content:center; background:#fff; color:var(--brand); padding:.8rem 1.35rem; border-radius:var(--r-sm); font-weight:700; }
 .btn-light:hover { background:#ead9c8; }
 .carousel-controls { position:absolute; left:0; right:0; bottom:1.25rem; display:flex; align-items:center; justify-content:center; gap:1.25rem; z-index:2; }
-.carousel-controls > button { width:38px;height:38px;border:1px solid rgba(255,255,255,.65);border-radius:50%;background:rgba(40,22,14,.4);color:#fff;font-size:1.5rem;cursor:pointer; }
 .carousel-dots { display:flex; gap:.55rem; }
 .carousel-dot { width:9px;height:9px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.55);cursor:pointer; }
 .carousel-dot.active { background:#fff; box-shadow:0 0 0 4px rgba(255,255,255,.2); }
@@ -371,10 +383,12 @@ address a { color: var(--brand); font-weight: 700; text-underline-offset: 3px; }
 .map-wrap { margin-top:2.5rem; }
 .map-frame { overflow:hidden; border-radius:var(--r-md); border:1px solid var(--line); height:430px; }
 .map-frame iframe { width:100%;height:100%;border:0; }
+.map-frame + p { margin-top:1.75rem; }
 @keyframes carouselFade { from { opacity:.55 } to { opacity:1 } }
 @media (max-width: 760px) {
  .carousel-slide { padding:2rem 1.4rem 5rem; background-image:linear-gradient(90deg,rgba(37,20,13,.82),rgba(37,20,13,.42)),var(--slide-image); }
- .carousel-copy h1,.carousel-copy h2 { font-size:2.3rem; }
+ .carousel-copy h1,.carousel-copy h2 { font-size:2.3rem; min-height:calc(4 * 1.08em); }
+ .carousel-copy p:not(.eyebrow) { min-height:calc(3 * 1.65em); }
  .main-nav { background:var(--brand-deep) !important; }
  .main-nav a { color:#fff; }
  .map-frame { height:320px; }

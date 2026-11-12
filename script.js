@@ -26,16 +26,16 @@
     slides.forEach(function (slide, i) { slide.classList.toggle("active", i === current); });
     dots.forEach(function (dot, i) { dot.classList.toggle("active", i === current); });
   }
-  var prev = document.getElementById("carouselPrev");
-  var next = document.getElementById("carouselNext");
-  if (prev) prev.addEventListener("click", function () { showSlide(current - 1); });
-  if (next) next.addEventListener("click", function () { showSlide(current + 1); });
   dots.forEach(function (dot, i) { dot.addEventListener("click", function () { showSlide(i); }); });
   if (slides.length) window.setInterval(function () { showSlide(current + 1); }, 6000);
   var grid = document.getElementById("galleryGrid");
   var box = document.getElementById("lightbox");
   var img = document.getElementById("lbImg");
   var close = document.getElementById("lbClose");
+  var lbPrev = document.getElementById("lbPrev");
+  var lbNext = document.getElementById("lbNext");
+  var items = grid ? Array.prototype.slice.call(grid.querySelectorAll(".g-item")) : [];
+  var currentImg = 0;
   function openBox(src, alt) {
     if (!box || !img) return;
     img.src = src; if (alt) img.alt = alt;
@@ -43,15 +43,29 @@
     if (close) close.focus();
   }
   function closeBox() { if (box) { box.hidden = true; document.body.style.overflow = ""; } }
+  function showImage(index) {
+    if (!items.length) return;
+    currentImg = (index + items.length) % items.length;
+    var btn = items[currentImg];
+    var pic = btn.querySelector("img");
+    var full = btn.getAttribute("data-full");
+    if (full) openBox(full, pic ? pic.alt : "Foto da clínica ampliada");
+  }
   if (grid) grid.addEventListener("click", function (e) {
     var btn = e.target instanceof Element ? e.target.closest(".g-item") : null;
     if (!btn) return;
-    var full = btn.getAttribute("data-full"); var pic = btn.querySelector("img");
-    if (full) openBox(full, pic ? pic.alt : "Foto da clínica ampliada");
+    showImage(items.indexOf(btn));
   });
   if (close) close.addEventListener("click", closeBox);
+  if (lbPrev) lbPrev.addEventListener("click", function () { showImage(currentImg - 1); });
+  if (lbNext) lbNext.addEventListener("click", function () { showImage(currentImg + 1); });
   if (box) {
     box.addEventListener("click", function (e) { if (e.target === box) closeBox(); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !box.hidden) closeBox(); });
+    document.addEventListener("keydown", function (e) {
+      if (box.hidden) return;
+      if (e.key === "Escape") closeBox();
+      else if (e.key === "ArrowLeft") showImage(currentImg - 1);
+      else if (e.key === "ArrowRight") showImage(currentImg + 1);
+    });
   }
 })();
