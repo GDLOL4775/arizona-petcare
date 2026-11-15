@@ -262,6 +262,10 @@ address a { color: var(--brand); font-weight: 700; text-underline-offset: 3px; }
 }
 .float-wa:hover { background: var(--wa-dark); }
 
+.float-wa i {
+  font-size: 30px;
+}
+
 /* Lightbox */
 .lightbox { position: fixed; inset: 0; z-index: 80; background: rgba(30, 17, 10, 0.9); display: grid; place-items: center; padding: 1.5rem; }
 .lightbox[hidden] { display: none; }
